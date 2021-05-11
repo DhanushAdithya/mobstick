@@ -7,7 +7,7 @@ npm install --global yarn
 ```
 in your git bash or Windows CMD or Windows PowerShell
 
-![For more info](https://classic.yarnpkg.com/en/docs/install/#windows-stable)
+[For more info](https://classic.yarnpkg.com/en/docs/install/#windows-stable)
 
 ### Yarn check
 
