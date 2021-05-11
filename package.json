@@ -1,14 +1,17 @@
 {
-  "name": "mobstick",
-  "version": "1.0.0",
-  "description": "A game that you control via your phone",
-  "main": "index.js",
-  "repository": "https://github.com/DhanushAdithya/mobstick.git",
-  "author": "Dhanush Adithya <s.dhanushadithya@gmail.com>",
-  "license": "MIT",
-  "private": false,
-  "dependencies": {
-    "express": "^4.17.1",
-    "socket.io": "^4.1.0"
-  }
+	"name": "mobstick",
+	"version": "1.0.0",
+	"description": "A game that you control via your phone",
+	"main": "index.js",
+	"repository": "https://github.com/DhanushAdithya/mobstick.git",
+	"author": "Dhanush Adithya <s.dhanushadithya@gmail.com>",
+	"license": "MIT",
+	"private": false,
+	"dependencies": {
+		"express": "^4.17.1",
+		"socket.io": "^4.1.0"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.7"
+	}
 }
