@@ -1,0 +1,245 @@
+* {
+	margin: 0%;
+	padding: 0%;
+	box-sizing: inherit;
+}
+
+body {
+	color: rgb(119, 119, 119);
+	box-sizing: border-box;
+	overflow-x: hidden;
+	background-color: #ffe3fe;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+header {
+	height: 95vh;
+	background-image: linear-gradient(
+			to right bottom,
+			rgb(3, 1, 9, 0.5),
+			rgb(68, 10, 103, 0.5),
+			rgb(147, 50, 158)
+		),
+		url('https://thumbs.gfycat.com/FixedGivingFreshwatereel-size_restricted.gif');
+	background-size: cover;
+	background-position: top;
+	clip-path: polygon(0 0, 100% 0, 100% 90vh, 0 100%);
+	position: relative;
+}
+
+.text-box {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+.heading-primary {
+	color: rgb(255, 255, 255);
+	backface-visibility: hidden;
+}
+
+.heading-primary-main {
+	display: block;
+	font-size: 140px;
+	font-weight: 400;
+	letter-spacing: 10px;
+	line-height: 1.3em;
+	animation: moveLeft 1s ease-out;
+	font-family: 'Monoton', cursive;
+	text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff;
+}
+
+.heading-primary-sub {
+	display: block;
+	font-size: 42px;
+
+	letter-spacing: 3px;
+	animation: moveInRight 1s ease-out;
+	font-family: 'Bangers', cursive;
+}
+
+@keyframes moveLeft {
+	0% {
+		opacity: 0;
+		transform: translateX(-500px);
+	}
+
+	80% {
+		transform: translateX(10px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translate(0);
+	}
+}
+
+@keyframes moveInRight {
+	0% {
+		opacity: 0;
+		transform: translateX(500px);
+	}
+
+	80% {
+		transform: translateX(-10px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translate(0);
+	}
+}
+
+.todo {
+	text-align: center;
+	color: #b4aee8;
+	font-family: 'Bangers', cursive;
+	padding-top: 100px;
+}
+
+.container-flex {
+	height: 100vh;
+	background-color: #ffe3fe;
+}
+
+.cont {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
+
+.boom-boom {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.card {
+	border-radius: 8px;
+	width: 340px !important;
+	padding: 0 !important;
+	margin: 5px !important;
+}
+
+.card-title {
+	font-family: 'Monoton', cursive;
+	font-variant: small-caps;
+}
+
+.game-text {
+	text-align: center;
+	color: #b4aee8;
+	font-family: 'Bangers', cursive;
+	padding-top: 70px;
+}
+
+footer {
+	clip-path: polygon(0 0, 100% 10%, 100% 100%, 0% 100%);
+}
+
+.page-footer {
+	background-image: linear-gradient(
+		to right bottom,
+		rgb(115, 27, 170),
+		rgb(68, 10, 103, 0.5),
+		rgb(115, 27, 170)
+	);
+}
+
+.footer-text {
+	color: #ffe3fe;
+}
+
+.btn {
+	text-transform: none !important;
+}
+
+.btn:link,
+.btn:visited {
+	border-radius: 4px !important;
+	transition: all 0.2s !important;
+	font-size: 15px;
+	font-family: 'Farro', cursive;
+}
+
+.btn:hover {
+	box-shadow: 0 5px 10px #731baa !important;
+}
+
+.btn:active {
+	transform: translateY(-1px);
+	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+.btn--white {
+	background-color: #731baa !important;
+	color: #fff !important;
+}
+
+.white-text {
+	font-family: 'Monoton', cursive;
+}
+
+.white-para {
+	font-family: 'Farro', sans-serif;
+}
+
+.icons {
+	width: 7vh;
+	margin-top: 40px;
+	margin-left: 20px;
+	color: #b4aee8 !important;
+}
+
+.contact-us {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-left: 10px;
+}
+
+@media (max-width: 930px) {
+	.heading-primary-main {
+		font-size: 100px;
+	}
+	.heading-primary-sub {
+		font-size: 32px;
+	}
+}
+
+@media (max-width: 710px) {
+	.heading-primary-main {
+		font-size: 80px;
+	}
+	.heading-primary-sub {
+		font-size: 24px;
+	}
+}
+
+@media (max-width: 570px) {
+	.heading-primary-main {
+		font-size: 60px;
+	}
+	.heading-primary-sub {
+		font-size: 18px;
+		line-height: 1.1em;
+	}
+}
+
+@media (max-width: 570px) {
+	.heading-primary-main {
+		font-size: 46px;
+	}
+	.heading-primary-sub {
+		font-size: 14px;
+		line-height: 1.1em;
+	}
+}
