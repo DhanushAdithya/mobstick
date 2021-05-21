@@ -1,5 +1,18 @@
 const socket = io()
 
+const roomId = new URL(location).pathname
+	.split('/')
+	.filter(
+		e =>
+			!(
+				e === 'mobile' ||
+				e === 'desktop' ||
+				e === '' ||
+				e === 'pc' ||
+				e === 'phone'
+			)
+	)[0]
+
 window.focus() // Capture keys right away (by default focus is on editor)
 
 function pickRandom(array) {
@@ -75,18 +88,10 @@ const arcAngle3 = Math.acos(arcCenterX / innerTrackRadius)
 const arcAngle4 = Math.acos(arcCenterX / outerTrackRadius)
 
 const scoreElement = document.getElementById('score')
-const buttonsElement = document.getElementById('buttons')
-const instructionsElement = document.getElementById('instructions')
 const resultsElement = document.getElementById('results')
 const accelerateButton = document.getElementById('accelerate')
 const decelerateButton = document.getElementById('decelerate')
 const youtubeLogo = document.getElementById('youtube-main')
-
-setTimeout(() => {
-	if (ready) instructionsElement.style.opacity = 1
-	buttonsElement.style.opacity = 1
-	youtubeLogo.style.opacity = 1
-}, 4000)
 
 // Initialize ThreeJs
 // Set up camera
@@ -185,9 +190,6 @@ function startGame() {
 	if (ready) {
 		ready = false
 		scoreElement.innerText = 0
-		buttonsElement.style.opacity = 1
-		instructionsElement.style.opacity = 0
-		youtubeLogo.style.opacity = 1
 		renderer.setAnimationLoop(animation)
 	}
 }
@@ -1039,11 +1041,23 @@ window.addEventListener('resize', () => {
 	renderer.render(scene, camera)
 })
 
-socket.on('start', () => startGame())
+socket.on('connect', () => {
+	socket.emit('join', roomId)
+})
+
+socket.on('leave the room', () => {
+	location.assign('/dash/desktop')
+})
+
+socket.on('start', () => {
+	console.log('start')
+	startGame()
+})
 
 if (isPhone()) {
 } else {
 	socket.on('mobile orientation', data => {
+		console.log('orientation')
 		if (data > 0) {
 			startGame()
 			decelerate = false
@@ -1057,6 +1071,7 @@ if (isPhone()) {
 	})
 
 	socket.on('reset', () => {
+		console.log('reset')
 		reset()
 	})
 }

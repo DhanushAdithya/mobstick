@@ -26,7 +26,7 @@ const ball = {
 	radius: 10,
 	velocityX: 5,
 	velocityY: 5,
-	speed: 10,
+	speed: 5,
 	color: 'WHITE',
 }
 
@@ -139,7 +139,7 @@ function update() {
 		ball.velocityX = direction * ball.speed * Math.cos(angleRad)
 		ball.velocityY = ball.speed * Math.sin(angleRad)
 
-		ball.speed += 1
+		ball.speed += 0.3
 	}
 }
 
@@ -180,7 +180,6 @@ socket.on('connect', () => {
 })
 
 socket.on('leave the room', () => {
-	console.log('take me to /pc')
 	location.assign('/desktop')
 })
 
@@ -190,7 +189,7 @@ if (isPhone()) {
 		let loop = setInterval(game, 1000 / framePerSecond)
 		ball.velocityX = 5
 		ball.velocityY = 5
-		ball.speed = 10
+		ball.speed = 5
 	})
 
 	socket.on('reset', () => {
@@ -203,17 +202,17 @@ if (isPhone()) {
 		com.score = 0
 		ball.velocityX = 5
 		ball.velocityY = 5
-		ball.speed = 10
+		ball.speed = 5
 	})
 
 	socket.on('mobile orientation', data => {
-		if (data > 7) {
-			user.y -= 2.5
+		if (data > 9) {
+			user.y -= 2.2
 			if (user.y < 0) {
 				user.y = 10
 			}
-		} else if (data < -7) {
-			user.y += 2.5
+		} else if (data < -9) {
+			user.y += 2.2
 			if (user.y + 100 > canvas.height) {
 				user.y = canvas.height - 110
 			}
