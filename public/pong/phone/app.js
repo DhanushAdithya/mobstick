@@ -1,9 +1,5 @@
 const socket = io()
 
-socket.on('connect', () => {
-	socket.emit('join', roomId)
-})
-
 const roomId = new URL(location).pathname
 	.split('/')
 	.filter(
@@ -13,6 +9,9 @@ const roomId = new URL(location).pathname
 				e === 'desktop' ||
 				e === '' ||
 				e === 'pc' ||
+				e === 'pong' ||
+				e === 'atari' ||
+				e === 'dash' ||
 				e === 'phone'
 			)
 	)[0]
@@ -29,9 +28,12 @@ const handleOrientation = e => {
 	socket.emit('orientation', [roomId, e.beta])
 }
 
-socket.on('leave', () => {
-	console.log('leave')
-	location.assign('/phone')
+socket.on('connect', () => {
+	socket.emit('join', roomId)
+})
+
+socket.on('leave the room', () => {
+	location.assign('/pong/phone')
 })
 
 window.addEventListener('deviceorientation', e =>
