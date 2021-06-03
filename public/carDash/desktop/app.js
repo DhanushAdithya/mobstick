@@ -9,6 +9,9 @@ const roomId = new URL(location).pathname
 				e === 'desktop' ||
 				e === '' ||
 				e === 'pc' ||
+				e === 'pong' ||
+				e === 'atari' ||
+				e === 'dash' ||
 				e === 'phone'
 			)
 	)[0]

@@ -9,6 +9,9 @@ const roomId = new URL(location).pathname
 				e === 'desktop' ||
 				e === '' ||
 				e === 'pc' ||
+				e === 'pong' ||
+				e === 'atari' ||
+				e === 'dash' ||
 				e === 'phone'
 			)
 	)[0]
@@ -180,7 +183,7 @@ socket.on('connect', () => {
 })
 
 socket.on('leave the room', () => {
-	location.assign('/desktop')
+	location.assign('/pong/desktop')
 })
 
 if (isPhone()) {
