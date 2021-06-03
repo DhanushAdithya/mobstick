@@ -1,26 +1,46 @@
+const socket = io()
+
+const roomId = new URL(location).pathname
+	.split('/')
+	.filter(
+		e =>
+			!(
+				e === 'mobile' ||
+				e === 'desktop' ||
+				e === '' ||
+				e === 'pc' ||
+				e === 'pong' ||
+				e === 'atari' ||
+				e === 'dash' ||
+				e === 'phone'
+			)
+	)[0]
+
 const canvas = document.getElementById('myCanvas')
 canvas.width = innerWidth
 canvas.height = innerHeight
+
 const ctx = canvas.getContext('2d')
 const ballRadius = 10
 let x = canvas.width / 2
 let y = canvas.height - 30
-let dx = 2
-let dy = -2
-let paddleHeight = 10
-let paddleWidth = 75
+let dx = 3
+let dy = -3
+const paddleHeight = 10
+const paddleWidth = 75
 let paddleX = (canvas.width - paddleWidth) / 2
-let rightPressed = false
-let leftPressed = false
-let brickRowCount = 5
-let brickColumnCount = 3
-let brickWidth = 75
-let brickHeight = 20
-let brickPadding = 10
-let brickOffsetTop = 30
-let brickOffsetLeft = 30
+const brickRowCount = 17
+const brickColumnCount = 5
+const brickWidth = 75
+const brickHeight = 20
+const brickPadding = 10
+const brickOffsetTop = 30
+const brickOffsetLeft = 30
+let right = false
+let left = false
 let score = 0
 let lives = 3
+let start = false
 
 let bricks = []
 for (let c = 0; c < brickColumnCount; c++) {
@@ -30,32 +50,6 @@ for (let c = 0; c < brickColumnCount; c++) {
 	}
 }
 
-document.addEventListener('keydown', keyDownHandler, false)
-document.addEventListener('keyup', keyUpHandler, false)
-document.addEventListener('mousemove', mouseMoveHandler, false)
-
-function keyDownHandler(e) {
-	if (e.key == 'Right' || e.key == 'ArrowRight') {
-		rightPressed = true
-	} else if (e.key == 'Left' || e.key == 'ArrowLeft') {
-		leftPressed = true
-	}
-}
-
-function keyUpHandler(e) {
-	if (e.key == 'Right' || e.key == 'ArrowRight') {
-		rightPressed = false
-	} else if (e.key == 'Left' || e.key == 'ArrowLeft') {
-		leftPressed = false
-	}
-}
-
-function mouseMoveHandler(e) {
-	let relativeX = e.clientX - canvas.offsetLeft
-	if (relativeX > 0 && relativeX < canvas.width) {
-		paddleX = relativeX - paddleWidth / 2
-	}
-}
 function collisionDetection() {
 	for (let c = 0; c < brickColumnCount; c++) {
 		for (let r = 0; r < brickRowCount; r++) {
@@ -122,15 +116,7 @@ function drawLives() {
 	ctx.fillText('Lives: ' + lives, canvas.width - 65, 20)
 }
 
-function draw() {
-	ctx.clearRect(0, 0, canvas.width, canvas.height)
-	drawBricks()
-	drawBall()
-	drawPaddle()
-	drawScore()
-	drawLives()
-	collisionDetection()
-
+function startGame() {
 	if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
 		dx = -dx
 	}
@@ -154,15 +140,65 @@ function draw() {
 		}
 	}
 
-	if (rightPressed && paddleX < canvas.width - paddleWidth) {
-		paddleX += 7
-	} else if (leftPressed && paddleX > 0) {
-		paddleX -= 7
+	if (right && paddleX < canvas.width - paddleWidth) {
+		paddleX += 6
+	} else if (left && paddleX > 0) {
+		paddleX -= 6
 	}
 
 	x += dx
 	y += dy
+
 	requestAnimationFrame(draw)
 }
 
+function draw() {
+	ctx.clearRect(0, 0, canvas.width, canvas.height)
+	drawBricks()
+	drawBall()
+	drawPaddle()
+	drawScore()
+	drawLives()
+	collisionDetection()
+
+	if (start) {
+		startGame()
+	}
+}
+
 draw()
+
+socket.on('connect', () => {
+	socket.emit('join', roomId)
+})
+
+socket.on('leave the room', () => {
+	location.assign('/atari/desktop')
+})
+
+socket.on('start', () => {
+	console.log('start')
+	start = true
+	draw()
+})
+
+if (isPhone()) {
+} else {
+	socket.on('mobile orientation', data => {
+		if (data > 9) {
+			right = true
+			left = false
+		} else if (data < -9) {
+			right = false
+			left = true
+		} else {
+			right = false
+			left = false
+		}
+	})
+
+	socket.on('reset', () => {
+		console.log('reset')
+		document.location.reload()
+	})
+}
