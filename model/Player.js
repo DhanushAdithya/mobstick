@@ -11,12 +11,6 @@ class Player {
 		return player
 	}
 
-	//getUserList(room) {
-	//let players = this.players.filter(player => player.room === room)
-	//let playerNames = players.map(player => player.name)
-	//return playerNames
-	//}
-
 	getUserId(room) {
 		let players = this.players.filter(player => player.room === room)
 		let playerId = players.map(player => player.id)
