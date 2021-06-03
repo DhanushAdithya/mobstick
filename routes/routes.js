@@ -5,14 +5,11 @@ const { Player } = require('../model/Player')
 const player = new Player()
 
 const phone = (req, res) => {
-	const { id } = req.params
 	const io = req.app.get('io')
 
-	console.log(io.sockets.adapter.rooms)
 	io.on('connection', socket => {
-		console.log('Phone:', socket.id, id)
-
 		socket.on('join', roomId => {
+			console.log('Phone:', socket.id, roomId)
 			socket.join(roomId)
 
 			player.removeUser(socket.id)
@@ -38,9 +35,8 @@ const phone = (req, res) => {
 			socket.on('vibrate', roomId => {
 				io.to(roomId).emit('vibrate mobile')
 			})
-
 			socket.on('disconnect', () => {
-				console.log(`User with id ${socket.id} disconnected`)
+				console.log(`${socket.id} disconnected`)
 				player.removeUser(socket.id)
 			})
 		})
@@ -49,121 +45,99 @@ const phone = (req, res) => {
 }
 
 const desktop_pong = (req, res) => {
-	const { id } = req.params
 	const io = req.app.get('io')
 
-	res.render('pong_desktop')
-
 	io.on('connection', socket => {
-		console.log('Desktop:', socket.id, id)
-
 		socket.on('join', roomId => {
+			console.log('Desktop:', socket.id, roomId)
 			socket.join(roomId)
 
 			player.removeUser(socket.id)
 			player.addUser(socket.id, roomId)
-
-			//if (Number(player.count) === player.getUserList(params.room).length) {
-			//io.to(params.room).emit('playersReady', true)
-			//}
 
 			if (player.roomCount(roomId)) {
 				io.to(socket.id).emit('leave the room')
 			}
 
 			socket.on('disconnect', () => {
-				console.log(`User with id ${socket.id} disconnected`)
+				console.log(`${socket.id} disconnected`)
 				player.removeUser(socket.id)
 			})
 		})
 	})
+
+	res.render('pong_desktop')
 }
 
 const desktop_atari = (req, res) => {
-	const { id } = req.params
 	const io = req.app.get('io')
 
-	res.render('atari_desktop')
-
 	io.on('connection', socket => {
-		console.log('Desktop:', socket.id, id)
-
 		socket.on('join', roomId => {
+			console.log('Desktop:', socket.id, roomId)
 			socket.join(roomId)
 
 			player.removeUser(socket.id)
 			player.addUser(socket.id, roomId)
-
-			//if (Number(player.count) === player.getUserList(params.room).length) {
-			//io.to(params.room).emit('playersReady', true)
-			//}
 
 			if (player.roomCount(roomId)) {
 				io.to(socket.id).emit('leave the room')
 			}
 
 			socket.on('disconnect', () => {
-				console.log(`User with id ${socket.id} disconnected`)
+				console.log(`${socket.id} disconnected`)
 				player.removeUser(socket.id)
 			})
 		})
 	})
+
+	res.render('atari_desktop')
 }
 
 const desktop_dash = (req, res) => {
-	const { id } = req.params
 	const io = req.app.get('io')
 
-	res.render('dash_desktop')
-
 	io.on('connection', socket => {
-		console.log('Desktop:', socket.id, id)
-
 		socket.on('join', roomId => {
+			console.log('Desktop:', socket.id, roomId)
 			socket.join(roomId)
 
 			player.removeUser(socket.id)
 			player.addUser(socket.id, roomId)
-
-			//if (Number(player.count) === player.getUserList(params.room).length) {
-			//io.to(params.room).emit('playersReady', true)
-			//}
 
 			if (player.roomCount(roomId)) {
 				io.to(socket.id).emit('leave the room')
 			}
 
 			socket.on('disconnect', () => {
-				console.log(`User with id ${socket.id} disconnected`)
+				console.log(`${socket.id} disconnected`)
 				player.removeUser(socket.id)
 			})
 		})
 	})
+
+	res.render('dash_desktop')
 }
 
-const desktop_get = (req, res) => {
-	res.render('connect')
-}
-
-const phone_get = (req, res) => {
+const connect = (req, res) => {
 	res.render('connect')
 }
 
 router.get('/', (req, res) => res.render('index'))
 
-router.get('/pong/desktop', desktop_get)
-router.get('/pong/phone', phone_get)
+router.get('/pong/desktop', connect)
+router.get('/pong/phone', connect)
 router.get('/pong/desktop/:id', desktop_pong)
 router.get('/pong/phone/:id', phone)
 
-router.get('/atari/desktop', desktop_get)
-router.get('/atari/phone', phone_get)
+router.get('/atari/desktop', connect)
+router.get('/atari/phone', connect)
 router.get('/atari/desktop/:id', desktop_atari)
 router.get('/atari/phone/:id', phone)
 
+router.get('/dash/desktop', connect)
+router.get('/dash/phone', connect)
 router.get('/dash/desktop/:id', desktop_dash)
 router.get('/dash/phone/:id', phone)
-router.get('/dash/desktop', desktop_get)
-router.get('/dash/phone', phone_get)
 
 module.exports = router
