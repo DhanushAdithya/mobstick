@@ -1,0 +1,70 @@
+*,
+html,
+body {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	width: 100%;
+	overflow: hidden;
+	height: 100vh;
+	background-color: #323330;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.container {
+	width: 500px;
+	transform: rotate(90deg);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.push_button {
+	position: relative;
+	width: 150px;
+	color: #fff;
+	display: block;
+	margin: 0 auto;
+	border-radius: 5px;
+	border: solid 1px transparent;
+	text-align: center;
+	padding: 15px 30px;
+	font-size: 1.4rem;
+
+	-webkit-transition: all 0.1s;
+	-moz-transition: all 0.1s;
+	transition: all 0.1s;
+}
+
+.push_button:active {
+	-webkit-box-shadow: 0px 2px 0px #84261a;
+	-moz-box-shadow: 0px 2px 0px #84261a;
+	box-shadow: 0px 2px 0px #84261a;
+	position: relative;
+	top: 7px;
+}
+
+.start {
+	background-color: #3bd965;
+	-webkit-box-shadow: 0px 9px 0px #2d9c4b;
+	-moz-box-shadow: 0px 9px 0px #2d9c4b;
+	box-shadow: 0px 9px 0px #2d9c4b;
+}
+
+.start:active {
+	-webkit-box-shadow: 0px 2px 0px #2d9c4b;
+	-moz-box-shadow: 0px 2px 0px #2d9c4b;
+	box-shadow: 0px 2px 0px #2d9c4b;
+}
+
+.reset {
+	background-color: #f04141;
+	-webkit-box-shadow: 0px 9px 0px #bf3434;
+	-moz-box-shadow: 0px 9px 0px #bf3434;
+	box-shadow: 0px 9px 0px #bf3434;
+}
