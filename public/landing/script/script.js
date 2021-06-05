@@ -1,3 +1,25 @@
+window.onload = () => {
+	const sg = document.querySelectorAll('.sg')
+	const cr = document.querySelectorAll('.cr')
+
+	const device = isPhone() ? 'phone' : 'desktop'
+	const games = ['pong', 'atari', 'dash']
+
+	sg.forEach((elm, i) => {
+		elm.href = `${games[i]}/${device}/${chance.string({
+			length: 6,
+			numeric: true,
+			alpha: true,
+			symbols: false,
+			casing: 'lower',
+		})}`
+	})
+
+	cr.forEach((elm, i) => {
+		elm.href = `${games[i]}/${device}/`
+	})
+}
+
 window.onscroll = () => {
 	scrollFunction()
 }
